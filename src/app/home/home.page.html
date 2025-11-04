@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Minha Loja</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Minha Loja</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  @if (isLoading) {
+    <div class="ion-padding ion-text-center">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Carregando produtos...</p>
+    </div>
+  } @else {
+    <ion-grid>
+      <ion-row>
+        
+        @for (produto of produtos; track produto.id) {
+          
+          <ion-col size="6" size-md="4" size-lg="3">
+            
+            <!-- 
+              A CORREÇÃO ESTÁ AQUI:
+              Era [appHighlight] (com colchetes)
+              O correto é appHighlight (sem colchetes)
+            -->
+            <ion-card (click)="verDetalhes(produto.id)" button="true" class="product-card" appHighlight>
+              
+              <img [src]="produto.image" [alt]="produto.title" class="product-image" />
+              
+              <ion-card-header>
+                <ion-card-title class="product-title">
+                  {{ produto.title | truncate:25 }}
+                </ion-card-title>
+              </ion-card-header>
+      
+              <ion-card-content class="product-content">
+                <p class="product-price">
+                  {{ produto.price | currency:'BRL' }}
+                </p>
+              </ion-card-content>
+
+            </ion-card>
+          </ion-col>
+        }
+
+      </ion-row>
+    </ion-grid>
+  }
+
+</ion-content>
+

@@ -1,0 +1,69 @@
+/* Adicionando padding ao conteúdo da página */
+ion-content {
+  --padding-start: 10px;
+  --padding-end: 10px;
+}
+
+/* Estilização do Card de Produto 
+  Usamos 'flex' para alinhar tudo e garantir que os cards tenham a mesma altura
+*/
+.product-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Faz todos os cards da linha terem a mesma altura */
+  margin: 0; /* Remove margens padrão do card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  border-radius: 8px; /* Bordas arredondadas */
+  overflow: hidden; /* Garante que a imagem não vaze */
+}
+
+/* Estilização da Imagem 
+*/
+.product-image {
+  width: 100%;
+  height: 140px; /* Altura fixa para a imagem */
+  object-fit: contain; /* Garante que a imagem caiba sem distorcer */
+  padding: 10px;
+  border-bottom: 1px solid #f0f0f0; /* Linha sutil separadora */
+}
+
+/* Header do Card (Título) 
+*/
+.product-card ion-card-header {
+  padding: 10px;
+  min-height: 60px; /* Altura mínima para o título */
+}
+
+.product-title {
+  font-size: 0.9em;
+  line-height: 1.3;
+  color: #333;
+  /* Isso é opcional, mas ajuda a truncar o texto se for muito longo */
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limita a 2 linhas (para navegadores antigos) */
+  line-clamp: 2; /* <-- CORREÇÃO: Padrão moderno */
+  -webkit-box-orient: vertical;
+}
+
+/* Conteúdo do Card (Preço) 
+  Usamos 'flex-grow: 1' para empurrar o preço para o final do card
+*/
+.product-card ion-card-content {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Faz o conteúdo crescer e empurra o preço para baixo */
+  justify-content: flex-end; /* Alinha o preço no final */
+}
+
+.product-price {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: var(--ion-color-primary); /* Usa a cor primária do app */
+  text-align: center;
+  margin: 0;
+}
+

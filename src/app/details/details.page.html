@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <!-- Botão Voltar automático -->
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalhes do Produto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <!-- 1. Mostra o Spinner enquanto isLoading for true -->
+  @if (isLoading) {
+    <div class="ion-padding ion-text-center">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Carregando produto...</p>
+    </div>
+  }
+
+  <!-- 2. Mostra o conteúdo quando isLoading for false E o produto existir -->
+  @if (!isLoading && produto) {
+    <ion-card>
+      <!-- 
+        Usa o IonImg para carregar a imagem de forma otimizada 
+      -->
+      <ion-img [src]="produto.image" [alt]="produto.title" style="width: 60%; margin: 20px auto; display: block;"></ion-img>
+
+      <ion-card-header>
+        <ion-card-title style="font-size: 1.4em;">
+          {{ produto.title }}
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <!-- 
+          Mostra o Preço formatado
+        -->
+        <p style="font-size: 1.8em; font-weight: bold; color: var(--ion-color-primary); margin-bottom: 16px;">
+          {{ produto.price | currency:'BRL' }}
+        </p>
+
+        <!-- 
+          Mostra a Descrição completa
+        -->
+        <p style="font-size: 1em; line-height: 1.5;">
+          {{ produto.description }}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  }
+
+</ion-content>
+
