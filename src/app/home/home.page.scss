@@ -1,69 +1,421 @@
-/* Adicionando padding ao conteúdo da página */
+/* Home Page Styles */
+
+// Importa a fonte (ex: Poppins do Google Fonts)
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 ion-content {
-  --padding-start: 10px;
-  --padding-end: 10px;
+  --background: var(--phlox-gray-bg); // Fundo geral cinza claro
 }
 
-/* Estilização do Card de Produto 
-  Usamos 'flex' para alinhar tudo e garantir que os cards tenham a mesma altura
+// Estilos globais para a página
+body, html {
+  font-family: 'Poppins', sans-serif; // Aplica a fonte
+  color: var(--phlox-dark-text);
+}
+
+// Header Customizado
+ion-toolbar {
+  --background: #FFFFFF; // Fundo branco
+  --color: var(--phlox-dark-text); // Texto escuro
+  padding: 0 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+  .header-logo {
+    height: 32px; // Ajuste o tamanho do seu logo
+    width: 32px;  // <-- ADICIONADO: Garante que a largura seja igual à altura
+    margin-right: 8px;
+    border-radius: 50%; // <-- ADICIONADO: Torna a imagem circular
+    object-fit: cover; // <-- ADICIONADO: Garante que a imagem preencha o círculo
+  }
+
+  .header-title {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--phlox-dark-text);
+  }
+
+  .header-icons ion-button {
+    --color: var(--phlox-dark-text);
+    margin-left: 8px;
+  }
+}
+
+// Container principal para centralizar o conteúdo e aplicar max-width
+.main-container {
+  max-width: 1200px; // Largura máxima do conteúdo
+  margin: 0 auto; // Centraliza o container
+  padding: 24px; // Espaçamento interno
+  box-sizing: border-box; // Garante que padding não aumente a largura total
+}
+
+// Estilo para todos os títulos de seção
+.section-heading {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: var(--phlox-dark-text);
+  margin-top: 40px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+/* 1. Hero Section */
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #FFFFFF; // Fundo branco
+  border-radius: 12px;
+  margin: 24px auto; // Centraliza e dá espaço
+  padding: 40px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  max-width: 1200px; // Mesmo max-width do main-container
+
+  @media (max-width: 992px) {
+    flex-direction: column;
+    padding: 30px;
+    text-align: center;
+  }
+
+  .hero-content {
+    flex: 1;
+    min-width: 300px;
+    padding-right: 40px;
+
+    @media (max-width: 992px) {
+      padding-right: 0;
+      margin-bottom: 30px;
+    }
+  }
+
+  .hero-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3.5rem; // Tamanho grande
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--phlox-dark-text);
+    margin-bottom: 16px;
+
+    @media (max-width: 992px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  .hero-description {
+    font-size: 1rem;
+    color: var(--phlox-medium-text);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    max-width: 400px;
+
+    @media (max-width: 992px) {
+      max-width: none;
+    }
+  }
+
+  .shop-category-btn {
+    --background: var(--phlox-red);
+    --color: white;
+    --border-radius: 8px;
+    --box-shadow: none;
+    font-weight: 500;
+    padding: 20px 30px; // Aumenta o tamanho do botão
+    height: auto; // Garante que o padding funcione
+    font-size: 1rem;
+    text-transform: capitalize; // Primeira letra maiúscula
+  }
+
+  .hero-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-width: 300px;
+
+    @media (max-width: 992px) {
+      justify-content: center;
+    }
+  }
+
+  .hero-image {
+    max-width: 100%; // Imagem se ajusta
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+/* Grid de Categorias (Blocos coloridos no meio da página) */
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); // Responsivo
+  gap: 24px;
+  margin-bottom: 40px;
+
+  .category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; // Alinha o texto à esquerda
+    justify-content: space-between;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    color: white; // Texto branco para fundos coloridos
+    position: relative;
+    overflow: hidden;
+    height: 250px; // Altura fixa para os blocos
+
+    .category-name {
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      z-index: 1; // Garante que o texto esteja acima da imagem
+    }
+
+    .category-btn {
+      --background: #FFFFFF;
+      --color: var(--phlox-dark-text);
+      --border-radius: 6px;
+      --padding-start: 18px;
+      --padding-end: 18px;
+      height: 36px;
+      font-size: 0.9rem;
+      text-transform: capitalize;
+      z-index: 1;
+    }
+
+    .category-image {
+      position: absolute;
+      bottom: -10px; // Ajuste para posicionar a imagem parcialmente fora
+      right: -10px;
+      max-width: 60%; // Tamanho da imagem de fundo
+      height: auto;
+      opacity: 0.7; // Transparência
+      z-index: 0;
+    }
+
+    // Cores dos fundos
+    &.red-bg { background: var(--phlox-red); }
+    &.yellow-bg { background: var(--phlox-yellow); }
+    &.green-bg { background: var(--phlox-green); }
+    &.blue-bg { background: var(--phlox-blue); }
+    &.orange-bg { background: orange; } // Exemplo, adicione variável se for usar
+    &.purple-bg { background: purple; } // Exemplo
+  }
+}
+
+/* Seção de Benefícios (Free Shipping, etc.) */
+.benefits-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  padding: 30px 0; // Padding vertical
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+
+  .benefit-item {
+    text-align: center;
+    padding: 15px;
+
+    ion-icon {
+      font-size: 2.5rem;
+      color: var(--phlox-red); // Ícones na cor de destaque
+      margin-bottom: 10px;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--phlox-dark-text);
+      margin-bottom: 5px;
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: var(--phlox-medium-text);
+    }
+  }
+}
+
+
+/* Container da Grade de Produtos
+  Cria a grade de 6 colunas e a torna responsiva.
+*/
+.product-grid-container {
+  display: grid;
+  gap: 20px; // Aumentei o espaçamento entre os cartões
+  margin-bottom: 40px; // Espaçamento abaixo da grade
+  
+  // 2 colunas (Padrão - Mobile)
+  grid-template-columns: repeat(2, 1fr);
+
+  // 4 colunas (Tablet - 768px+)
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  // 6 colunas (Desktop - 1200px+)
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* Estilos do Cartão de Produto
+  Garante que todos tenham o mesmo tamanho e que o conteúdo se ajuste.
 */
 .product-card {
+  height: 100%; // Força todos os cartões a terem a mesma altura do maior
   display: flex;
   flex-direction: column;
-  height: 100%; /* Faz todos os cards da linha terem a mesma altura */
-  margin: 0; /* Remove margens padrão do card */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  border-radius: 8px; /* Bordas arredondadas */
-  overflow: hidden; /* Garante que a imagem não vaze */
+  margin: 0; // Remove a margem padrão do ion-card
+  font-family: 'Poppins', sans-serif;
+  border-radius: 12px; // Bordas mais arredondadas
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08); // Sombra mais proeminente
+  overflow: hidden; // Garante que o conteúdo não vaze das bordas
+  background: #FFFFFF; // Fundo branco para os cards
+  position: relative; // Para posicionar o tag de categoria
+
+  .product-category-tag {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: var(--phlox-red); // Tag de categoria vermelha
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    z-index: 2;
+    text-transform: uppercase;
+  }
+  
+  .product-image-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1; // Imagem quadrada
+    overflow: hidden;
+    padding: 20px; // Aumentado para diminuir mais a imagem
+    box-sizing: border-box;
+    display: flex; // Para centralizar a imagem dentro do wrapper
+    align-items: center;
+    justify-content: center;
+  }
+
+  .product-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; // Garante que a imagem caiba sem cortar
+  }
+  
+  ion-card-header {
+    padding: 12px; // Padding ajustado
+    order: 2; // Título após a imagem e preço/botões
+    flex-shrink: 0; // Não deixa o header encolher
+  }
+
+  .product-title {
+    font-size: 1rem; 
+    font-weight: 600;
+    color: var(--phlox-dark-text);
+    min-height: 2.8em; // Ajustado para 2 linhas de texto
+    line-height: 1.4em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  ion-card-content {
+    padding: 0 12px 12px 12px; // Padding ajustado
+    order: 3; // Conteúdo após o título (se houver descrição, etc)
+    flex-grow: 1; // Empurra os botões para baixo se o conteúdo variar
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; // Alinha preço e botões na parte inferior
+  }
+
+  .product-price {
+    font-weight: 700; // Mais bold
+    font-size: 1.2rem; // Preço maior
+    color: var(--phlox-dark-text); // Cor do texto escuro
+    margin: 0 0 10px 0; // Margem inferior
+    text-align: left; // Alinha o preço à esquerda
+  }
+
+  .product-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center; // Centraliza o botão se for único
+  }
+
+  .buy-now-btn {
+    --background: var(--phlox-red); // Botão de compra vermelho
+    --color: white;
+    --border-radius: 8px; // Cantos arredondados
+    --box-shadow: none;
+    width: 100%; // Ocupa a largura total
+    height: 40px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: capitalize;
+  }
 }
 
-/* Estilização da Imagem 
-*/
-.product-image {
-  width: 100%;
-  height: 140px; /* Altura fixa para a imagem */
-  object-fit: contain; /* Garante que a imagem caiba sem distorcer */
-  padding: 10px;
-  border-bottom: 1px solid #f0f0f0; /* Linha sutil separadora */
+// Paginação
+.pagination-controls {
+  margin-top: 30px;
+  margin-bottom: 60px;
+  ion-button {
+    --color: var(--phlox-medium-text);
+    font-weight: 500;
+  }
+  span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--phlox-dark-text);
+    margin: 0 10px;
+  }
 }
 
-/* Header do Card (Título) 
-*/
-.product-card ion-card-header {
-  padding: 10px;
-  min-height: 60px; /* Altura mínima para o título */
-}
-
-.product-title {
-  font-size: 0.9em;
-  line-height: 1.3;
-  color: #333;
-  /* Isso é opcional, mas ajuda a truncar o texto se for muito longo */
-  white-space: normal;
+/* 4. Seção de Oferta (Banner Vermelho Grande) */
+.offer-section {
+  display: flex;
+  background: var(--phlox-red); // Fundo vermelho
+  color: white;
+  border-radius: 12px;
+  padding: 40px;
+  margin-top: 40px;
+  margin-bottom: 60px;
+  position: relative;
   overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Limita a 2 linhas (para navegadores antigos) */
-  line-clamp: 2; /* <-- CORREÇÃO: Padrão moderno */
-  -webkit-box-orient: vertical;
-}
+  align-items: center;
 
-/* Conteúdo do Card (Preço) 
-  Usamos 'flex-grow: 1' para empurrar o preço para o final do card
-*/
-.product-card ion-card-content {
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* Faz o conteúdo crescer e empurra o preço para baixo */
-  justify-content: flex-end; /* Alinha o preço no final */
-}
+  @media (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
+    padding: 30px;
+  }
 
-.product-price {
-  font-size: 1.1em;
-  font-weight: bold;
-  color: var(--ion-color-primary); /* Usa a cor primária do app */
-  text-align: center;
-  margin: 0;
-}
+  .offer-content {
+    flex: 1;
+    padding-right: 30px;
 
+    @media (max-width: 768px) {
+      padding-right: 0;
+      margin-bottom: 20px;
+    }
+  }
+
+  .offer-title {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 10px;
+
+        @media (max-width: 768px) {
+          font-size: 2.2rem;
+        }
+      }
+    }
