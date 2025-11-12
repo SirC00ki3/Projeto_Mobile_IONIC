@@ -21,32 +21,36 @@
   <!-- 2. Mostra o conteúdo quando isLoading for false E o produto existir -->
   @if (!isLoading && produto) {
     <ion-card>
-      <!-- 
-        Usa o IonImg para carregar a imagem de forma otimizada 
-      -->
-      <ion-img [src]="produto.image" [alt]="produto.title" style="width: 60%; margin: 20px auto; display: block;"></ion-img>
-
-      <ion-card-header>
-        <ion-card-title style="font-size: 1.4em;">
-          {{ produto.title }}
-        </ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
+      <div class="details-card">
         <!-- 
-          Mostra o Preço formatado
+          Usa o IonImg para carregar a imagem de forma otimizada 
         -->
-        <p style="font-size: 1.8em; font-weight: bold; color: var(--ion-color-primary); margin-bottom: 16px;">
-          {{ produto.price | currency:'BRL' }}
-        </p>
+        <ion-img [src]="produto.image" [alt]="produto.title" class="product-image"></ion-img>
 
-        <!-- 
-          Mostra a Descrição completa
-        -->
-        <p style="font-size: 1em; line-height: 1.5;">
-          {{ produto.description }}
-        </p>
-      </ion-card-content>
+        <div class="product-info">
+          <ion-card-header>
+            <ion-card-title style="font-size: 1.4em;">
+              {{ produto.title }}
+            </ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <!-- 
+              Mostra o Preço formatado
+            -->
+            <p style="font-size: 1.8em; font-weight: bold; color: var(--ion-color-primary); margin-bottom: 16px;">
+              {{ produto.price | currency:'BRL' }}
+            </p>
+
+            <!-- 
+              Mostra a Descrição completa
+            -->
+            <p style="font-size: 1em; line-height: 1.5;">
+              {{ produto.description }}
+            </p>
+          </ion-card-content>
+        </div>
+      </div>
     </ion-card>
   }
 

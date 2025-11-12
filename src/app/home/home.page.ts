@@ -1,26 +1,44 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common'; // Necessário para @if, @for, currency
+import { CommonModule, CurrencyPipe, TitleCasePipe } from '@angular/common'; // Para @if, @for, pipes
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router'; // Para a navegação
+
+// Importações dos componentes Standalone do Ionic
 import {
   IonHeader,
   IonToolbar,
+  IonButtons, // <-- RESOLVE O ERRO
   IonTitle,
+  IonIcon,    // <-- NECESSÁRIO PARA OS ÍCONES
   IonContent,
+  IonButton,
+  IonGrid,
+  IonRow,
+  IonCol,
   IonSpinner,
   IonCard,
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonGrid,
-  IonRow,
-  IonCol
 } from '@ionic/angular/standalone';
 
-// Use a lâmpada (💡) nestas 3 linhas se o caminho estiver errado
-import { ApiService } from '../services/api.service'; // <-- CORRIGIDO
-// 1. IMPORTAR A DIRETIVA
-import { HighlightDirective } from '../directives/highlight.directive'; 
-import { TruncatePipe } from '../pipes/truncate.pipe'; // <-- CORRIGIDO
+// Importe seu serviço de API
+import { ApiService } from '../services/api.service';
+
+// Importe os ícones que você está usando
+import { addIcons } from 'ionicons';
+import { 
+  searchOutline, 
+  personOutline, 
+  cartOutline,
+  arrowBackOutline,
+  arrowForwardOutline,
+  carOutline,
+  cardOutline,
+  headsetOutline,
+  lockClosedOutline 
+} from 'ionicons/icons';
+
 
 @Component({
   selector: 'app-home',
@@ -28,32 +46,51 @@ import { TruncatePipe } from '../pipes/truncate.pipe'; // <-- CORRIGIDO
   styleUrls: ['home.page.scss'],
   standalone: true,
   imports: [
-    CommonModule,
+    CommonModule, // Para @if, @for
+    FormsModule,
+    CurrencyPipe,  // Para | currency
+    TitleCasePipe, // Para | titlecase
+
+    // Lista de componentes Ionic
     IonHeader,
     IonToolbar,
+    IonButtons,
     IonTitle,
+    IonIcon,
     IonContent,
+    IonButton,
+    IonGrid,
+    IonRow,
+    IonCol,
     IonSpinner,
     IonCard,
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    TruncatePipe,
-    IonGrid,
-    IonRow,
-    IonCol,
-    HighlightDirective 
   ],
 })
 export class HomePage implements OnInit {
   
   public produtos: any[] = [];
-  public isLoading: boolean = true;
+  public isLoading = true;
 
   constructor(
     private api: ApiService,
     private router: Router
-  ) {}
+  ) {
+    // Registra os ícones globalmente
+    addIcons({
+      searchOutline,
+      personOutline,
+      cartOutline,
+      arrowBackOutline,
+      arrowForwardOutline,
+      carOutline,
+      cardOutline,
+      headsetOutline,
+      lockClosedOutline
+    });
+  }
 
   ngOnInit() {
     this.carregarProdutos();
@@ -61,21 +98,20 @@ export class HomePage implements OnInit {
 
   carregarProdutos() {
     this.isLoading = true;
-
     this.api.getProdutos().subscribe(
-      (data: any) => {
+      (data) => {
         this.produtos = data;
         this.isLoading = false;
       },
-      (error: any) => {
-        console.error('ERRO AO BUSCAR DADOS:', error);
+      (error) => {
+        console.error('Erro ao carregar produtos', error);
         this.isLoading = false;
       }
     );
   }
 
+  // Função para ver detalhes (você já deve ter)
   verDetalhes(id: number) {
     this.router.navigate(['/details', id]);
   }
 }
-

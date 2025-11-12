@@ -1,0 +1,17 @@
+.details-card {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+}
+
+.product-image {
+  width: 280px;
+  height: 280px;
+  flex-shrink: 0;
+  margin-right: 16px;
+  object-fit: contain;
+}
+
+.product-info {
+  flex: 1;
+}

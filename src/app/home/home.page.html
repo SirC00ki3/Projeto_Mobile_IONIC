@@ -1,57 +1,102 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Minha Loja</ion-title>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <img src="assets/icon/concha.png" alt="Logo Concha" class="header-logo"> <!-- Exemplo de logo --><ion-title class="header-title">Concha</ion-title>
+    </ion-buttons>
+
+    <ion-buttons slot="end" class="header-icons">
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="person-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Minha Loja</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  @if (isLoading) {
-    <div class="ion-padding ion-text-center">
-      <ion-spinner name="crescent"></ion-spinner>
-      <p>Carregando produtos...</p>
-    </div>
-  } @else {
-    <ion-grid>
-      <ion-row>
-        
-        @for (produto of produtos; track produto.id) {
-          
-          <ion-col size="6" size-md="4" size-lg="3">
-            
-            <!-- 
-              A CORREÇÃO ESTÁ AQUI:
-              Era [appHighlight] (com colchetes)
-              O correto é appHighlight (sem colchetes)
-            -->
-            <ion-card (click)="verDetalhes(produto.id)" button="true" class="product-card" appHighlight>
-              
-              <img [src]="produto.image" [alt]="produto.title" class="product-image" />
-              
-              <ion-card-header>
-                <ion-card-title class="product-title">
-                  {{ produto.title | truncate:25 }}
-                </ion-card-title>
-              </ion-card-header>
+  <!-- 1. Hero Section --><section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Concha <br>Sua Compra <br>Nosso Lucro</h1>
+      <p class="hero-description">Não nos responsabilizamos pelo reembolso e por compras impulsivas.</p>
       
-              <ion-card-content class="product-content">
-                <p class="product-price">
-                  {{ produto.price | currency:'BRL' }}
-                </p>
-              </ion-card-content>
+    </div>
+    <div class="hero-image-container">
+      <img src="assets/icon/concha.png" alt="Wireless Headphone" class="hero-image"> <!-- Use sua imagem real aqui --></div>
+  </section>
 
-            </ion-card>
-          </ion-col>
+  <!-- 2. Main Content Area --><div class="main-container">
+
+    <!-- Seção de Títulos de Categoria --><h2 class="section-heading">Temos Varios Produtos</h2>
+
+    <!-- Grid de Categorias (Os blocos coloridos) --><section class="category-grid">
+      <!-- Exemplo de um item de categoria --><div class="category-item red-bg">
+        <p class="category-name">Bolsas <br>De <br>Alto padrao</p>
+        
+        
+      </div>
+      <div class="category-item yellow-bg">
+        <p class="category-name">Roupas<br>De Frio <br></p>
+        
+      </div>
+      <div class="category-item green-bg">
+        <p class="category-name">Joias <br>Pulseiras <br>Colares</p>
+        
+      </div>
+      <div class="category-item blue-bg">
+        <p class="category-name">Monitores<br>Gamer <br></p>
+        
+      </div>
+      <div class="category-item orange-bg">
+        <p class="category-name">Pecas <br>De<br>Computador</p>
+        
+      </div>
+      <div class="category-item purple-bg">
+        <p class="category-name">Conjunto<br>De <br>Roupas</p>
+        
+      </div>
+      <!-- Adicione mais itens de categoria conforme a imagem --></section>
+
+    
+    <!-- 3. Grid de Produtos (Seu código antigo adaptado) --><h2 class="section-heading">Produtos</h2>
+    @if (isLoading) {
+      <div class="ion-padding ion-text-center loading-container">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>Carregando produtos...</p>
+      </div>
+    } @else {
+      <div class="product-grid-container">
+        @for (produto of produtos; track produto.id) {
+          <ion-card (click)="verDetalhes(produto.id)" button="true" class="product-card" appHighlight>
+            <div class="product-category-tag">
+              {{ produto.category | titlecase }}
+            </div>
+            <div class="product-image-wrapper">
+              <img [src]="produto.image" [alt]="produto.title" class="product-image" />
+            </div>
+            <ion-card-header>
+              <ion-card-title class="product-title">
+                {{ produto.title }}
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content class="product-content">
+              <p class="product-price">
+                {{ produto.price | currency:'BRL' }}
+              </p>
+              <div class="product-actions">
+                <ion-button fill="solid" size="small" class="buy-now-btn">Buy Now</ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
         }
+      </div>
+      
+     
+    }
 
-      </ion-row>
-    </ion-grid>
-  }
-
-</ion-content>
-
+   
